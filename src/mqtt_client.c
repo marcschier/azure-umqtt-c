@@ -565,7 +565,11 @@ static void recvCompleteCallback(void* context, CONTROL_PACKET_TYPE packet, int 
                 }
                 case PINGRESP_TYPE:
                     mqttData->timeSincePing = 0;
-                    // Ping responses do not get forwarded
+                    if (mqttData->fnOperationCallback)
+                    {
+                        /*Codes_SRS_MQTT_CLIENT_20_001: [If the actionResult parameter is of type PINGRESP_TYPE then the msgInfo value shall be NULL.]*/
+                        mqttData->fnOperationCallback(mqttData, MQTT_CLIENT_ON_PING_RESPONSE, NULL, mqttData->ctx);
+                    }
                     break;
                 default:
                     break;
