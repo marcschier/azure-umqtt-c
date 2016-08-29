@@ -158,7 +158,7 @@ static void getLogTime(char* timeResult, size_t len)
     }
 }
 
-static void logOutgoingingMsgTrace(MQTT_CLIENT* clientData, const uint8_t* data, size_t length)
+static void logOutgoingMsgTrace(MQTT_CLIENT* clientData, const uint8_t* data, size_t length)
 {
     if (clientData != NULL && data != NULL && length > 0 && clientData->logTrace)
     {
@@ -166,11 +166,13 @@ static void logOutgoingingMsgTrace(MQTT_CLIENT* clientData, const uint8_t* data,
         getLogTime(tmBuffer, TIME_MAX_BUFFER);
 
         LOG(LOG_TRACE, 0, "-> %s %s: ", tmBuffer, retrievePacketType((unsigned char)data[0]));
-        for (size_t index = 0; index < length; index++)
+        if (clientData->rawBytesTrace)
         {
-            LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+            for (size_t index = 0; index < length; index++)
+            {
+                LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+            }
         }
-
         LOG(LOG_TRACE, LOG_LINE, "");
     }
 }
@@ -188,9 +190,12 @@ static void logIncomingMsgTrace(MQTT_CLIENT* clientData, CONTROL_PACKET_TYPE pac
             getLogTime(tmBuffer, TIME_MAX_BUFFER);
 
             LOG(LOG_TRACE, 0, "<- %s %s: 0x%02x 0x%02x ", tmBuffer, retrievePacketType((CONTROL_PACKET_TYPE)packet), (unsigned char)(packet | flags), length);
-            for (size_t index = 0; index < length; index++)
+            if (clientData->rawBytesTrace)
             {
-                LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+                for (size_t index = 0; index < length; index++)
+                {
+                    LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+                }
             }
 
             LOG(LOG_TRACE, LOG_LINE, "");
@@ -224,7 +229,7 @@ static int sendPacketItem(MQTT_CLIENT* clientData, const unsigned char* data, si
         }
         else
         {
-            logOutgoingingMsgTrace(clientData, (const uint8_t*)data, length);
+            logOutgoingMsgTrace(clientData, (const uint8_t*)data, length);
         }
     }
     return result;
