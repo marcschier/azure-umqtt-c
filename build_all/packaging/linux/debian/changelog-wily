@@ -1,4 +1,4 @@
-azure-umqtt-c (0.1.0.1-15) wily; urgency=low
+azure-umqtt-c (0.1.0.1-17) wily; urgency=low
 
   * Initial release (Closes: #5479749)
 
@@ -25,7 +25,9 @@ azure-umqtt-c (0.1.0.1-15) wily; urgency=low
   * Make consolelogger be the default logger
 
   * Bug fix: enabled warnings as errors on build, plus fix for W4 build errors
+
+  * Fix logging for the build
  
- -- AzureIoT User <aziotsdklinux@outlook.com>  Tue, 2 Aug 2016 11:00:00 +0000
+ -- AzureIoT User <aziotsdklinux@outlook.com> Tue, 16 Aug 2016 11:00:00 +0000
 
 
