@@ -222,7 +222,7 @@ static void logOutgoingingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data
         getLogTime(tmBuffer, TIME_MAX_BUFFER);
 
         LOG(LOG_TRACE, 0, "-> %s %s: ", tmBuffer, retrievePacketType((unsigned char)data[0]));
-        if (clientData->rawBytesTrace)
+        if (mqtt_client->rawBytesTrace)
         {
             for (size_t index = 0; index < length; index++)
             {
@@ -256,7 +256,7 @@ static void logIncomingRawTrace(MQTT_CLIENT* mqtt_client, CONTROL_PACKET_TYPE pa
             getLogTime(tmBuffer, TIME_MAX_BUFFER);
 
             LOG(LOG_TRACE, 0, "<- %s %s: 0x%02x 0x%02x ", tmBuffer, retrievePacketType((CONTROL_PACKET_TYPE)packet), (unsigned char)(packet | flags), length);
-            if (clientData->rawBytesTrace)
+            if (mqtt_client->rawBytesTrace)
             {
                 for (size_t index = 0; index < length; index++)
                 {
@@ -745,7 +745,7 @@ static void recvCompleteCallback(void* context, CONTROL_PACKET_TYPE packet, int 
                     break;
                 }
                 case PINGRESP_TYPE:
-                    mqttData->timeSincePing = 0;
+                    mqtt_client->timeSincePing = 0;
                     // Ping responses do not get forwarded
                     if (mqtt_client->logTrace)
                     {
@@ -753,10 +753,10 @@ static void recvCompleteCallback(void* context, CONTROL_PACKET_TYPE packet, int 
                         log_incoming_trace(mqtt_client, trace_log);
                         STRING_delete(trace_log);
                     }
-                    if (mqttData->fnOperationCallback)
+                    if (mqtt_client->fnOperationCallback)
                     {
                         /*Codes_SRS_MQTT_CLIENT_20_001: [If the actionResult parameter is of type PINGRESP_TYPE then the msgInfo value shall be NULL.]*/
-                        mqttData->fnOperationCallback(mqttData, MQTT_CLIENT_ON_PING_RESPONSE, NULL, mqttData->ctx);
+                        mqtt_client->fnOperationCallback(mqtt_client, MQTT_CLIENT_ON_PING_RESPONSE, NULL, mqtt_client->ctx);
                     }
                     break;
                 default:
