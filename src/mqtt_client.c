@@ -756,7 +756,6 @@ static void recvCompleteCallback(void* context, CONTROL_PACKET_TYPE packet, int 
                 }
                 case PINGRESP_TYPE:
                     mqtt_client->timeSincePing = 0;
-                    // Ping responses do not get forwarded
                     if (mqtt_client->logTrace)
                     {
                         STRING_HANDLE trace_log = STRING_construct_sprintf("PINGRESP");
