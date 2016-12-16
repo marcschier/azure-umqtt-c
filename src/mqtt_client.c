@@ -26,7 +26,6 @@
 #define DEFAULT_MAX_PING_RESPONSE_TIME  80  // % of time to send pings
 #define MAX_CLOSE_RETRIES               10
 
-static const char* FORMAT_HEX_CHAR = "0x%02x ";
 static const char* TRUE_CONST = "true";
 static const char* FALSE_CONST = "false";
 
@@ -262,7 +261,7 @@ static void logOutgoingingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data
         {
             for (size_t index = 0; index < length; index++)
             {
-                LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+                LOG(LOG_TRACE, 0, "0x%02x ", data[index]);
             }
         }
         LOG(LOG_TRACE, LOG_LINE, "");
@@ -296,7 +295,7 @@ static void logIncomingRawTrace(MQTT_CLIENT* mqtt_client, CONTROL_PACKET_TYPE pa
             {
                 for (size_t index = 0; index < length; index++)
                 {
-                    LOG(LOG_TRACE, 0, (char*)FORMAT_HEX_CHAR, data[index]);
+                    LOG(LOG_TRACE, 0, "0x%02x ", data[index]);
                 }
             }
             LOG(LOG_TRACE, LOG_LINE, "");
