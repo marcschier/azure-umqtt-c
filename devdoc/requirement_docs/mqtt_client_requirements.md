@@ -17,6 +17,7 @@ typedef struct MQTT_CLIENT_DATA_INSTANCE_TAG* MQTT_CLIENT_HANDLE;
     MQTT_CLIENT_ON_PUBLISH_COMP,     \
     MQTT_CLIENT_ON_SUBSCRIBE_ACK,    \
     MQTT_CLIENT_ON_UNSUBSCRIBE_ACK,  \
+    MQTT_CLIENT_ON_PING_RESPONSE,    \
     MQTT_CLIENT_ON_DISCONNECT
 
 DEFINE_ENUM(MQTT_CLIENT_ACTION_RESULT, MQTT_CLIENT_ACTION_VALUES);
@@ -127,6 +128,7 @@ typedef void(*ON_MQTT_OPERATION_CALLBACK)(MQTT_CLIENT_ACTION_RESULT actionResult
 **SRS_MQTT_CLIENT_07_030: [**If the actionResult parameter is of type SUBACK_TYPE then the msgInfo value shall be a SUBSCRIBE_ACK* structure.**]**  
 **SRS_MQTT_CLIENT_07_031: [**If the actionResult parameter is of type UNSUBACK_TYPE then the msgInfo value shall be a UNSUBSCRIBE_ACK* structure.**]**  
 **SRS_MQTT_CLIENT_07_032: [**If the actionResult parameter is of type MQTT_CLIENT_ON_DISCONNECT the the msgInfo value shall be NULL.**]**
+**SRS_MQTT_CLIENT_20_001: [**If the actionResult parameter is of type PINGRESP_TYPE then the msgInfo value shall be NULL.**]**
 
 ##ON_MQTT_MESSAGE_RECV_CALLBACK
 ```
