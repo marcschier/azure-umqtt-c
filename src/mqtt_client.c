@@ -261,10 +261,7 @@ static void logOutgoingingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data
         size_t index = 0;
         for (index = 0; index < length; index++)
         {
-            for (size_t index = 0; index < length; index++)
-            {
-				LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
-            }
+			LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
         }
         LOG(AZ_LOG_TRACE, LOG_LINE, "");
     }
@@ -296,10 +293,7 @@ static void logIncomingRawTrace(MQTT_CLIENT* mqtt_client, CONTROL_PACKET_TYPE pa
             size_t index = 0;
             for (index = 0; index < length; index++)
             {
-                for (size_t index = 0; index < length; index++)
-                {
-                    LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
-                }
+                LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
             }
             LOG(AZ_LOG_TRACE, LOG_LINE, "");
         }
