@@ -2,12 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <stdlib.h>
-#ifdef _CRT_DBG_MAP_ALLOC
-#include <crtdbg.h>
-#endif // _CRT_DBG_MAP_ALLOC
+#include <stdbool.h>
+#include <stddef.h>
 #include <stdarg.h>
 #include <stdio.h>
-
+#include <stdint.h>
 #include "mqtt_client_sample.h"
 #include "azure_umqtt_c/mqtt_client.h"
 #include "azure_c_shared_utility/socketio.h"
@@ -16,9 +15,6 @@
 static const char* TOPIC_NAME_A = "msgA";
 static const char* TOPIC_NAME_B = "msgB";
 static const char* APP_NAME_A = "This is the app msg A.";
-static const char* APP_NAME_B = "This is the app msg B.";
-static const char* HOSTNAME = "test.mosquitto.org";
-static unsigned int sent_messages = 0;
 
 static uint16_t PACKET_ID_VALUE = 11;
 static bool g_continue = true;
@@ -131,6 +127,14 @@ static void OnOperationComplete(MQTT_CLIENT_HANDLE handle, MQTT_CLIENT_EVENT_RES
         case MQTT_CLIENT_ON_DISCONNECT:
             g_continue = false;
             break;
+        case MQTT_CLIENT_ON_UNSUBSCRIBE_ACK:
+        {
+            break;
+        }
+        default:
+        {
+            (void)printf("unexpected value received for enumeration (%d)\n", (int)actionResult);
+        }
     }
 }
 
