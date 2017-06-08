@@ -858,6 +858,7 @@ void mqtt_client_deinit(MQTT_CLIENT_HANDLE handle)
         MQTT_CLIENT* mqtt_client = (MQTT_CLIENT*)handle;
         tickcounter_destroy(mqtt_client->packetTickCntr);
         mqtt_codec_destroy(mqtt_client->codec_handle);
+        clear_mqtt_options(mqtt_client);
         free(mqtt_client);
     }
 }
