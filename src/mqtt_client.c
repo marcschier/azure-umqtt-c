@@ -250,7 +250,7 @@ static void log_outgoing_trace(MQTT_CLIENT* mqtt_client, STRING_HANDLE trace_log
     }
 }
 
-static void logOutgoingingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data, size_t length)
+static void logOutgoingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data, size_t length)
 {
     if (mqtt_client != NULL && data != NULL && length > 0 && mqtt_client->rawBytesTrace)
     {
@@ -261,7 +261,7 @@ static void logOutgoingingRawTrace(MQTT_CLIENT* mqtt_client, const uint8_t* data
         size_t index = 0;
         for (index = 0; index < length; index++)
         {
-			LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
+            LOG(AZ_LOG_TRACE, 0, "0x%02x ", data[index]);
         }
         LOG(AZ_LOG_TRACE, LOG_LINE, "");
     }
@@ -325,7 +325,7 @@ static int sendPacketItem(MQTT_CLIENT* mqtt_client, const unsigned char* data, s
         }
         else
         {
-            logOutgoingingRawTrace(mqtt_client, (const uint8_t*)data, length);
+            logOutgoingRawTrace(mqtt_client, (const uint8_t*)data, length);
         }
     }
     return result;
