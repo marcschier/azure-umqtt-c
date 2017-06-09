@@ -9,7 +9,7 @@ endif()
 
 project(umqtt)
 
-set(UMQTT_VERSION 1.0.29)
+set(UMQTT_VERSION 1.0.36)
 
 # Build with -fPIC always
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
@@ -20,7 +20,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     #on Linux, enable valgrind
     #these commands (MEMORYCHECK...) need to apear BEFORE include(CTest) or they will not have any effect
     find_program(MEMORYCHECK_COMMAND valgrind)	
-    set(MEMORYCHECK_COMMAND_OPTIONS "--trace-children=yes --leak-check=full --error-exitcode=1 --track-origins=yes")
+    set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --error-exitcode=1 --track-origins=yes")
 endif()
 
 include (CTest)
