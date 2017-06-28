@@ -9,7 +9,7 @@ endif()
 
 project(umqtt)
 
-set(UMQTT_VERSION 1.0.36)
+set(UMQTT_VERSION 1.0.37)
 
 # Build with -fPIC always
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
@@ -176,10 +176,10 @@ if (${run_unittests})
     add_subdirectory(tests)
 endif()
 
-if(${use_installed_dependencies})
-    # Set CMAKE_INSTALL_LIBDIR if not defined
-    include(GNUInstallDirs)
+# Set CMAKE_INSTALL_LIBDIR if not defined
+include(GNUInstallDirs)
 
+if(${use_installed_dependencies})
     # Install umqtt
     set(package_location "cmake")
 
@@ -222,4 +222,12 @@ if(${use_installed_dependencies})
         DESTINATION
             ${package_location}
     )
-endif() 
+else()
+	set(install_staticlibs
+		umqtt
+	)
+	install(FILES ${source_h_files}
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/azure_umqtt_c) 
+	install(TARGETS ${install_staticlibs} 
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif()
